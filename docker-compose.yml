@@ -1,0 +1,16 @@
+version: '3'
+services:
+  database:
+    image: mysql:latest
+    ports:
+      - '3307:3306'
+    expose:
+      - '3306'
+    environment:
+      MYSQL_DATABASE: 'database'
+      MYSQL_ROOT_PASSWORD: 'root'  # Utilisez MYSQL_ROOT_PASSWORD pour définir le mot de passe root
+    volumes:
+      - database:/var/lib/mysql
+
+volumes:
+  database:
