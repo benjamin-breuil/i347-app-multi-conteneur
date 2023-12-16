@@ -1,16 +1,28 @@
 version: '3'
 services:
+  frontend:
+    image: node:20-alpine
+    ports:
+      - '3000:3000'
+    working_dir: /app/frontend
+
+  backend:
+    image: node:latest
+    volumes:
+      - ./backend:/app/backend
+    working_dir: /app/backend
+    command: sh -c "npm install && app.js"
   database:
     image: mysql:latest
     ports:
       - '3307:3306'
-    expose:
-      - '3306'
     environment:
       MYSQL_DATABASE: 'database'
-      MYSQL_ROOT_PASSWORD: 'root'  # Utilisez MYSQL_ROOT_PASSWORD pour définir le mot de passe root
+      MYSQL_ROOT_PASSWORD: 'root'
     volumes:
       - database:/var/lib/mysql
 
 volumes:
   database:
+  frontend:
+  backend:
